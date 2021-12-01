@@ -19,7 +19,7 @@ let input =
 
 let part1 =
     input
-    |> Seq.fold findIncreases (0, 150) // 150 is my first input value
+    |> Seq.fold findIncreases (0, Seq.head input) // Need to start with the head of the list
     |> fst
 
 let part2 =
