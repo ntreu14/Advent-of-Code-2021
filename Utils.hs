@@ -2,8 +2,7 @@ module Utils
   ( Coordinate
   , readFileLines
   , toCoordinateMap    
-  )
-  where
+  ) where
 
 import Data.Map.Strict (Map)
 import qualified Data.Map.Strict as M
@@ -11,7 +10,7 @@ import qualified Data.Map.Strict as M
 type Coordinate = (Int, Int)
 
 readFileLines :: FilePath -> IO [String]
-readFileLines fileName = lines <$> readFile fileName
+readFileLines filePath = lines <$> readFile filePath
 
 toCoordinateMap :: [[a]] -> Map Coordinate a
 toCoordinateMap xs = M.fromList $ do
