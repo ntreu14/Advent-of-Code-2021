@@ -6,3 +6,4 @@ My solutions to Advent of Code 2021
 | Language | Days |
 | :---:   | :---: |
 | F#      | 1     |
+| Haskell | 1     |
