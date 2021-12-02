@@ -9,7 +9,7 @@ data SubmarinePosition = SubmarinePosition
   }
 
 runCommandPart1 :: SubmarinePosition -> String -> SubmarinePosition
-runCommandPart1 sp@SubmarinePosition{ horizontal=lastHorizontal, depth=lastDepth, aim=lastAim } command =
+runCommandPart1 sp@SubmarinePosition{ horizontal=lastHorizontal, depth=lastDepth } command =
   case words command of
     ["forward", x] -> 
       sp { horizontal=lastHorizontal + read x }
@@ -44,7 +44,7 @@ runCommands commandFn input =
 
 main :: IO ()
 main = do
-  input <- readFileLines "input.txt"
+  input <- readFileLines "day02/input.txt"
 
   -- Part 1
   print $ runCommands runCommandPart1 input
