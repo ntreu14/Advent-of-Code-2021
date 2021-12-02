@@ -1,5 +1,7 @@
 module Day02 where
 
+import Utils (readFileLines)
+
 data SubmarinePosition = SubmarinePosition
   { horizontal :: Int
   , depth      :: Int
@@ -40,11 +42,12 @@ runCommands commandFn input =
   where 
     finalSubmarinePosition = foldl commandFn (SubmarinePosition 0 0 0) input
 
+main :: IO ()
 main = do
-  input <- lines <$> readFile "input.txt"
+  input <- readFileLines "input.txt"
 
   -- Part 1
-  print $ runCommands runCommandPart1 input 
+  print $ runCommands runCommandPart1 input
 
   -- Part 2
   print $ runCommands runCommandPart2 input
