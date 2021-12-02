@@ -24,7 +24,7 @@ runCommandPart2 :: SubmarinePosition -> String -> SubmarinePosition
 runCommandPart2 sp@SubmarinePosition{ horizontal=lastHorizontal, depth=lastDepth, aim=lastAim} command =
   case words command of
     ["forward", x] ->
-      SubmarinePosition { horizontal=lastHorizontal + read x, depth=lastDepth + lastAim * read x, aim=lastAim }
+      sp { horizontal=lastHorizontal + read x, depth=lastDepth + lastAim * read x }
 
     ["down", x] -> 
       sp { aim=lastAim + read x }
