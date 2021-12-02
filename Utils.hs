@@ -10,7 +10,7 @@ import qualified Data.Map.Strict as M
 
 type Coordinate = (Int, Int)
 
-readFileLines :: String -> IO [String]
+readFileLines :: FilePath -> IO [String]
 readFileLines fileName = lines <$> readFile fileName
 
 toCoordinateMap :: [[a]] -> Map Coordinate a
