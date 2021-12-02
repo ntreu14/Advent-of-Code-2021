@@ -7,7 +7,7 @@ data SubmarinePosition = SubmarinePosition
   }
 
 runCommandPart1 :: SubmarinePosition -> String -> SubmarinePosition
-runCommandPart1 sp@SubmarinePosition{ horizontal=lastHorizontal, depth=lastDepth, aim=lastAim} command =
+runCommandPart1 sp@SubmarinePosition{ horizontal=lastHorizontal, depth=lastDepth, aim=lastAim } command =
   case words command of
     ["forward", x] -> 
       sp { horizontal=lastHorizontal + read x }
@@ -21,7 +21,7 @@ runCommandPart1 sp@SubmarinePosition{ horizontal=lastHorizontal, depth=lastDepth
     _ -> sp 
 
 runCommandPart2 :: SubmarinePosition -> String -> SubmarinePosition
-runCommandPart2 sp@SubmarinePosition{ horizontal=lastHorizontal, depth=lastDepth, aim=lastAim} command =
+runCommandPart2 sp@SubmarinePosition{ horizontal=lastHorizontal, depth=lastDepth, aim=lastAim } command =
   case words command of
     ["forward", x] ->
       sp { horizontal=lastHorizontal + read x, depth=lastDepth + lastAim * read x }
@@ -38,7 +38,7 @@ runCommands :: (SubmarinePosition -> String -> SubmarinePosition) -> [String] ->
 runCommands commandFn input =
   horizontal finalSubmarinePosition * depth finalSubmarinePosition
   where 
-    finalSubmarinePosition = foldl commandFn SubmarinePosition { horizontal=0, depth=0, aim=0 } input
+    finalSubmarinePosition = foldl commandFn (SubmarinePosition 0 0 0) input
 
 main = do
   input <- lines <$> readFile "input.txt"
