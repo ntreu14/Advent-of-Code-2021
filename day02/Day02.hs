@@ -10,30 +10,29 @@ runCommandPart1 :: SubmarinePosition -> String -> SubmarinePosition
 runCommandPart1 sp@SubmarinePosition{ horizontal=lastHorizontal, depth=lastDepth, aim=lastAim} command =
   case words command of
     ["forward", x] -> 
-      SubmarinePosition { horizontal=lastHorizontal + read x, depth=lastDepth, aim=lastAim }
+      sp { horizontal=lastHorizontal + read x }
 
     ["down", x] -> 
-      SubmarinePosition { horizontal=lastHorizontal , depth=lastDepth + read x, aim=lastAim } 
+      sp { depth=lastDepth + read x }
     
     ["up", x] -> 
-      SubmarinePosition { horizontal=lastHorizontal , depth=lastDepth - read x, aim=lastAim }
+      sp { depth=lastDepth - read x }
 
-    _ -> sp
+    _ -> sp 
 
 runCommandPart2 :: SubmarinePosition -> String -> SubmarinePosition
 runCommandPart2 sp@SubmarinePosition{ horizontal=lastHorizontal, depth=lastDepth, aim=lastAim} command =
   case words command of
-    ["forward", x] -> 
+    ["forward", x] ->
       SubmarinePosition { horizontal=lastHorizontal + read x, depth=lastDepth + lastAim * read x, aim=lastAim }
 
     ["down", x] -> 
-      SubmarinePosition { horizontal=lastHorizontal , depth=lastDepth, aim=lastAim + read x }
+      sp { aim=lastAim + read x }
     
     ["up", x] -> 
-      SubmarinePosition { horizontal=lastHorizontal , depth=lastDepth, aim=lastAim - read x }
+      sp { aim=lastAim - read x }
 
     _ -> sp
-
 
 runCommands :: (SubmarinePosition -> String -> SubmarinePosition) -> [String] -> Int
 runCommands commandFn input =
