@@ -53,8 +53,8 @@ def findCO2ScrubberRating(input):
 
 def part2(input):
   o2GeneratorRating = findOxygenGeneratorRating(input)
-  c02GeneratorRating = findCO2ScrubberRating(input)
-  print(int(o2GeneratorRating, 2) * int(c02GeneratorRating, 2))
+  co2GeneratorRating = findCO2ScrubberRating(input)
+  print(int(o2GeneratorRating, 2) * int(co2GeneratorRating, 2))
 
 part1(binaryNums)
 part2(binaryNums)
