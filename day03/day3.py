@@ -40,6 +40,8 @@ def findRating(input, ratingFn):
       bitCounts = Counter(alongCol).most_common()
       maxBit = ratingFn(bitCounts)
       remaining = list(filter(lambda remainingRow: remainingRow[colNum] == maxBit, remaining))
+    else:
+      break
   
   return remaining[0]
 
@@ -50,9 +52,9 @@ def findCO2ScrubberRating(input):
   return findRating(input, getMinBit)
 
 def part2(input):
-  O2GeneratorRating = findOxygenGeneratorRating(input)
-  C02GeneratorRating = findCO2ScrubberRating(input)
-  print(int(O2GeneratorRating, 2) * int(C02GeneratorRating, 2))
+  o2GeneratorRating = findOxygenGeneratorRating(input)
+  c02GeneratorRating = findCO2ScrubberRating(input)
+  print(int(o2GeneratorRating, 2) * int(c02GeneratorRating, 2))
 
 part1(binaryNums)
 part2(binaryNums)
