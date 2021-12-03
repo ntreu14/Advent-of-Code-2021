@@ -6,5 +6,5 @@ My solutions to Advent of Code 2021
 | Language | Total # of Days | Days Used |
 | :---:   | :---: | :---: |
 | F#      | 1 | 1 |
-| Haskell | 1 | 1 |
-| Python  | 1 | 1 |
+| Haskell | 1 | 2 |
+| Python  | 1 | 3 |
