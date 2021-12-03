@@ -11,9 +11,9 @@ def part1(input):
     for row in input:
       alongCol += row[colNum]
 
-    counts = Counter(alongCol).most_common()
-    mostCommon += counts[0][0]
-    leastCommon += counts[1][0]
+    bitCOunts = Counter(alongCol).most_common()
+    mostCommon += bitCOunts[0][0]
+    leastCommon += bitCOunts[1][0]
 
   print(int(mostCommon, 2) * int(leastCommon, 2))
 
