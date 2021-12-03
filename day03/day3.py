@@ -3,8 +3,8 @@ from collections import Counter
 binaryNums = open('input.txt', 'r').read().splitlines()
 
 def part1(input):
-  mostCommon = ''
-  leastCommon = ''
+  gammaRate = ''
+  epsilonRate = ''
 
   for colNum, _ in enumerate(input[0]):
     alongCol = ''
@@ -12,10 +12,10 @@ def part1(input):
       alongCol += row[colNum]
 
     bitCounts = Counter(alongCol).most_common()
-    mostCommon += bitCounts[0][0]
-    leastCommon += bitCounts[1][0]
+    gammaRate += bitCounts[0][0]
+    epsilonRate += bitCounts[1][0]
 
-  print(int(mostCommon, 2) * int(leastCommon, 2))
+  print(int(gammaRate, 2) * int(epsilonRate, 2))
 
 def getBit(bitCounts, defaultBit, maxOrMinPosition):
   if len(bitCounts) == 1:
