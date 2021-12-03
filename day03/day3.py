@@ -3,19 +3,19 @@ from collections import Counter
 binaryNums = open('input.txt', 'r').read().splitlines()
 
 def part1(input):
-  mostCommon = ''
-  leastCommon = ''
+  gammaRate = ''
+  epsilonRate = ''
 
   for colNum, _ in enumerate(input[0]):
     alongCol = ''
     for row in input:
       alongCol += row[colNum]
 
-    counts = Counter(alongCol).most_common()
-    mostCommon += counts[0][0]
-    leastCommon += counts[1][0]
+    bitCounts = Counter(alongCol).most_common()
+    gammaRate += bitCounts[0][0]
+    epsilonRate += bitCounts[1][0]
 
-  print(int(mostCommon, 2) * int(leastCommon, 2))
+  print(int(gammaRate, 2) * int(epsilonRate, 2))
 
 def getBit(bitCounts, defaultBit, maxOrMinPosition):
   if len(bitCounts) == 1:
@@ -38,8 +38,10 @@ def findRating(input, ratingFn):
 
     if len(remaining) != 1:
       bitCounts = Counter(alongCol).most_common()
-      maxBit = ratingFn(bitCounts)
-      remaining = list(filter(lambda remainingRow: remainingRow[colNum] == maxBit, remaining))
+      bit = ratingFn(bitCounts)
+      remaining = list(filter(lambda remainingRow: remainingRow[colNum] == bit, remaining))
+    else:
+      break
   
   return remaining[0]
 
@@ -50,9 +52,9 @@ def findCO2ScrubberRating(input):
   return findRating(input, getMinBit)
 
 def part2(input):
-  O2GeneratorRating = findOxygenGeneratorRating(input)
-  C02GeneratorRating = findCO2ScrubberRating(input)
-  print(int(O2GeneratorRating, 2) * int(C02GeneratorRating, 2))
+  o2GeneratorRating = findOxygenGeneratorRating(input)
+  co2GeneratorRating = findCO2ScrubberRating(input)
+  print(int(o2GeneratorRating, 2) * int(co2GeneratorRating, 2))
 
 part1(binaryNums)
 part2(binaryNums)
