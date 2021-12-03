@@ -38,8 +38,8 @@ def findRating(input, ratingFn):
 
     if len(remaining) != 1:
       bitCounts = Counter(alongCol).most_common()
-      maxBit = ratingFn(bitCounts)
-      remaining = list(filter(lambda remainingRow: remainingRow[colNum] == maxBit, remaining))
+      bit = ratingFn(bitCounts)
+      remaining = list(filter(lambda remainingRow: remainingRow[colNum] == bit, remaining))
     else:
       break
   
