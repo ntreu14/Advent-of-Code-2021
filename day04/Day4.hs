@@ -87,7 +87,7 @@ playBingoGameUntilLastWinner :: [Board] -> [Board] -> [Int] -> Int -> Int
 playBingoGameUntilLastWinner [] previousWinners _ previousLastCalled =
   previousLastCalled * M.foldr sumUnmarkedSpaces 0 (last previousWinners)
 
-playBingoGameUntilLastWinner boards previousWinners (numCalled:remainingNums) previousLastCalled =
+playBingoGameUntilLastWinner boards previousWinners (numCalled:remainingNums) _ =
   case foundWinners of
     [] -> playBingoGameUntilLastWinner afterRound previousWinners remainingNums numCalled
     
