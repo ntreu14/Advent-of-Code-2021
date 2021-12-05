@@ -25,11 +25,11 @@ let getCoordinates includeDiagonals (x1, y1) (x2, y2) =
   else 
     []
 
-let parseLineToVents getCoordinateFn vents (line: string) =
-  match line.Split " " with
+let parseLineToVents getCoordinatesFn vents (line: string) =
+  match line.Split ' ' with
   | [| x1; y1; "->"; x2; y2 |] -> 
 
-    getCoordinateFn (int x1, int y1) (int x2, int y2)
+    getCoordinatesFn (int x1, int y1) (int x2, int y2)
     |> List.fold (fun state coordinate -> updateMapWith ((+) 1) 1 coordinate state) vents
 
   | _ -> vents
