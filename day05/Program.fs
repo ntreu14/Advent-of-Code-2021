@@ -36,13 +36,13 @@ let parseLineToVents getCoordinateFn vents (line: string) =
 
 let input = File.ReadAllLines "input.txt" 
 
-let getOverlappingCountGreaterThan n =
+let getOverlappingCountAtLeast n =
   Map.count << Map.filter (fun _ v -> v >= n)
 
 let solve includeDiagonals =
   input
   |> Seq.fold (parseLineToVents <| getCoordinates includeDiagonals) Map.empty
-  |> getOverlappingCountGreaterThan 2
+  |> getOverlappingCountAtLeast 2
 
 // Part 1
 solve false |> printfn "%i"
