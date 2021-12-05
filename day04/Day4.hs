@@ -1,7 +1,6 @@
 module Day04 where
 
 import Utils
-import Data.Maybe (fromMaybe)
 import Data.List (groupBy, find, (\\))
 import Data.Map.Strict (Map)
 import qualified Data.Map.Strict as M
@@ -39,10 +38,10 @@ parseBoards = trd . foldl makeMapPerBoard (M.empty, 0, [])
 detectBingo :: Board -> Bool
 detectBingo board = isRowBingo || isColumnBingo
   where
-    isBingo = all (\coord -> isCoordinateMarked $ fromMaybe (Unmarked 0) $ M.lookup coord board)
+    isBingo = all (\coord -> isCoordinateMarked $ M.lookup coord board)
 
-    isCoordinateMarked (Marked _) = True
-    isCoordinateMarked _          = False
+    isCoordinateMarked (Just (Marked _)) = True
+    isCoordinateMarked _                 = False
 
     isRowBingo = any isBingo byRows
       where
