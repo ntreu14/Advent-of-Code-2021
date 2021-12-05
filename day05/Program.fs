@@ -4,7 +4,7 @@ open Utils
 let getReplicateCount a b = 
   (abs <| a - b) + 1  
 
-let getDiagonalCoordiantes a b =
+let getDiagonalCoordinate a b =
   if a < b then
     [a .. b]
   else
@@ -14,13 +14,13 @@ let getCoordinates includeDiagonals (x1, y1) (x2, y2) =
   let isDiagonal = (abs <| x1-x2) = (abs <| y1-y2)
   
   if includeDiagonals && isDiagonal then
-    List.zip (getDiagonalCoordiantes x1 x2) (getDiagonalCoordiantes y1 y2)
+    List.zip (getDiagonalCoordinate x1 x2) (getDiagonalCoordinate y1 y2)
 
   elif x1 = x2 then
     List.zip (List.replicate (getReplicateCount y1 y2) x1) [min y1 y2 .. max y1 y2]
 
   elif y1 = y2 then
-    List.zip [min x1 x2 .. max x1 x2] <| List.replicate (getReplicateCount x2 x1) y1 
+    List.zip [min x1 x2 .. max x1 x2] <| List.replicate (getReplicateCount x1 x2) y1 
 
   else 
     []
