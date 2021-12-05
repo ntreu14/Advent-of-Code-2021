@@ -25,14 +25,14 @@ let getCoordinates includeDiagonals (x1, y1) (x2, y2) =
   else 
     []
 
-let parseLineToGrid getCoordinateFn grid (line: string) =
+let parseLineToVents getCoordinateFn vents (line: string) =
   match line.Split " " with
   | [| x1; y1; "->"; x2; y2 |] -> 
 
     getCoordinateFn (int x1, int y1) (int x2, int y2)
-    |> List.fold (fun state coordinate -> updateMapWith ((+) 1) 1 coordinate state) grid
+    |> List.fold (fun state coordinate -> updateMapWith ((+) 1) 1 coordinate state) vents
 
-  | other -> grid
+  | _ -> vents
 
 let input = File.ReadAllLines "input.txt" 
 
@@ -41,7 +41,7 @@ let getOverlappingCountGreaterThan n =
 
 let solve includeDiagonals =
   input
-  |> Seq.fold (parseLineToGrid <| getCoordinates includeDiagonals) Map.empty
+  |> Seq.fold (parseLineToVents <| getCoordinates includeDiagonals) Map.empty
   |> getOverlappingCountGreaterThan 2
 
 // Part 1
