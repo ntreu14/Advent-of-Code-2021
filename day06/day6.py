@@ -9,7 +9,7 @@ def solve(days, start):
     for fish, count in counter.items():
       newState = fish - 1
     
-      if (newState == -1):
+      if newState == -1:
         newCounter[8] += count
         newState = 6
     
