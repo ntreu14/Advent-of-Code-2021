@@ -7,4 +7,4 @@ My solutions to Advent of Code 2021
 | :---:   | :---: | :---: |
 | Haskell | 2 | 2, 4 |
 | F#      | 2 | 1, 5 |
-| Python  | 1 | 3 |
+| Python  | 2 | 3, 6 |

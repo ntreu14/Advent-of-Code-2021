@@ -5,18 +5,17 @@ lanternfish = [4,1,1,1,5,1,3,1,5,3,4,3,3,1,3,3,1,5,3,2,4,4,3,4,1,4,2,2,1,3,5,1,1
 def solve(days, start):
   counter = Counter(start)
   for _ in range(days):
-    new_counter = Counter()
+    newCounter = Counter()
     for fish, count in counter.items():
-      new_state = fish - 1
+      newState = fish - 1
     
-      if (new_state == -1):
-        new_counter[8] += count
-        new_state = 6
+      if (newState == -1):
+        newCounter[8] += count
+        newState = 6
     
-      new_counter[new_state] += count
-      print (new_counter)
+      newCounter[newState] += count
     
-    counter = new_counter
+    counter = newCounter
   
   return sum(counter.values())
 
