@@ -14,7 +14,6 @@ def solve(days, start):
         new_state = 6
     
       new_counter[new_state] += count
-      print (new_counter)
     
     counter = new_counter
   
