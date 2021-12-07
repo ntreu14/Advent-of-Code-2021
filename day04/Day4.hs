@@ -1,4 +1,4 @@
-module Day04 where
+module Day4 where
 
 import Utils
 import Data.List (groupBy, find, (\\))

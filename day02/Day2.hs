@@ -1,4 +1,4 @@
-module Day02 where
+module Day2 where
 
 import Utils (readFileLines)
 
