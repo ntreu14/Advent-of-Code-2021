@@ -4,29 +4,26 @@ open Utils
 let input = File.ReadAllLines "input.txt"
 
 // Part 1
-let countOnlySegmentsWithCountsOf soughtCounts (line: string) =
+let toOnlyKnownSegments soughtCounts (line: string) =
     let isSoughtCount (output: string) = Seq.contains output.Length soughtCounts
 
     match splitOnWithoutEmpties line '|' with
     | [| _; outputs |] -> splitOnWithoutEmpties outputs ' ' |> Seq.filter isSoughtCount
-    | other -> failwithf "Cannot parse from part 1: %A, length: %i" other <| Seq.length other
+    | other -> failwith $"Cannot parse from part 1: {other}, length: {Seq.length other}"
 
-let countOnlyKnowSegmentLengths = 
-    countOnlySegmentsWithCountsOf [2; 4; 3; 7]
- 
-Seq.map countOnlyKnowSegmentLengths input 
+Seq.map (toOnlyKnownSegments [2; 4; 3; 7]) input 
 |> Seq.sumBy Seq.length
 |> printfn "%i"
 
 
 // Part 2
-let knownDigitLookupByLength segments knownLengths = // length => known segment
+let knownLengthToSegmentLookup segments knownLengths = // length => known segment
     segments
     |> Seq.map (fun (segment: string) -> (segment.Length, set segment))
     |> Seq.filter (fun (length, _) -> Seq.contains length knownLengths)
     |> Map.ofSeq
 
-let knownLengthToDigit = // length => known digit
+let knownLengthToDigitLookup = // length => known digit
     Map.ofList [(2, 1); (4, 4); (3, 7); (7, 8)]
 
 let parseSignalPatternsAndOutputs (line: string) =
@@ -37,7 +34,7 @@ let parseSignalPatternsAndOutputs (line: string) =
     | other ->
         failwith $"Cannot parse: {other}, length: {Seq.length other}"
 
-let findIntersectionCountOf segment intersectioncount knownDigitSegment =
+let isIntersectionCountOf segment intersectioncount knownDigitSegment =
     Set.intersect (set segment) knownDigitSegment
     |> Set.count 
     |> (=) intersectioncount
@@ -46,18 +43,18 @@ let decodeSignals knownLengthToSegment decodedLookup (segment: string) =
     match segment.Length with
 
     // Known segements by length
-    | segmentLength when Seq.contains segmentLength <| Map.keys knownLengthToDigit ->
-        let digit = Map.find segmentLength knownLengthToDigit
+    | segmentLength when Seq.contains segmentLength <| Map.keys knownLengthToDigitLookup ->
+        let digit = Map.find segmentLength knownLengthToDigitLookup
         Map.add (set segment) digit decodedLookup
 
     // Length 5
     | 5 ->
         // We know 3 because it has 2 intersections with 1
-        if Map.find 2 knownLengthToSegment |> findIntersectionCountOf segment 2 then
+        if Map.find 2 knownLengthToSegment |> isIntersectionCountOf segment 2 then
             Map.add (set segment) 3 decodedLookup
         
         // We know 5 because it has 3 intersections with 4
-        elif Map.find 4 knownLengthToSegment |> findIntersectionCountOf segment 3 then
+        elif Map.find 4 knownLengthToSegment |> isIntersectionCountOf segment 3 then
             Map.add (set segment) 5 decodedLookup
 
         // Otherwise 2 is the only remaining digit with length 5
@@ -67,11 +64,11 @@ let decodeSignals knownLengthToSegment decodedLookup (segment: string) =
     // Length 6 
     | 6 ->
         // We know 9 because it has 4 intersections with 4
-        if Map.find 4 knownLengthToSegment |> findIntersectionCountOf segment 4 then
+        if Map.find 4 knownLengthToSegment |> isIntersectionCountOf segment 4 then
             Map.add (set segment) 9 decodedLookup
 
         // We know 0 because it has 2 intersections with 1
-        elif Map.find 2 knownLengthToSegment |> findIntersectionCountOf segment 2 then
+        elif Map.find 2 knownLengthToSegment |> isIntersectionCountOf segment 2 then
             Map.add (set segment) 0 decodedLookup
 
         // Otherwise 6 is the only remaining digit with length 6
@@ -83,7 +80,7 @@ let decodeSignals knownLengthToSegment decodedLookup (segment: string) =
 
 let decodeSegment (wholeLine: string) =
     let segments, outputs = parseSignalPatternsAndOutputs wholeLine 
-    let knownLengthToSegment = knownDigitLookupByLength segments [2; 4; 3; 7]
+    let knownLengthToSegment = knownLengthToSegmentLookup segments [2; 4; 3; 7]
     let decodedValues = segments |> Seq.fold (decodeSignals knownLengthToSegment) Map.empty
 
     // Find the output value from the map we just made, combine it's digits, and convert it to an int
