@@ -26,7 +26,7 @@ let getCoordinates includeDiagonals (x1, y1) (x2, y2) =
     []
 
 let parseLineToVents getCoordinatesFn vents (line: string) =
-  match line.Split ' ' with
+  match splitOnWithoutEmpties line ' ' with
   | [| x1; y1; "->"; x2; y2 |] -> 
 
     getCoordinatesFn (int x1, int y1) (int x2, int y2)
@@ -36,13 +36,10 @@ let parseLineToVents getCoordinatesFn vents (line: string) =
 
 let input = File.ReadAllLines "input.txt" 
 
-let getOverlappingCountAtLeast n =
-  Map.count << Map.filter (fun _ v -> v >= n)
-
 let solve includeDiagonals =
   input
   |> Seq.fold (parseLineToVents <| getCoordinates includeDiagonals) Map.empty
-  |> getOverlappingCountAtLeast 2
+  |> mapCountWhere (fun _ v -> v >= 2)
 
 // Part 1
 solve false |> printfn "%i"
