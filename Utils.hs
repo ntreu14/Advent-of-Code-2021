@@ -1,11 +1,16 @@
-{-# LANGUAGE OverloadedStrings #-}
 module Utils
   ( Coordinate
   , readFileLines
   , toCoordinateMap
+  , getAdjacentPoints
+  , getAdjacentCoordinates
+  , getAdjacentPointsWithAdjacents
+  , toInts
   , trd  
   ) where
 
+import Data.Maybe (mapMaybe)
+import Data.Char (digitToInt)
 import Data.Map.Strict (Map)
 import qualified Data.Map.Strict as M
 
@@ -19,6 +24,29 @@ toCoordinateMap xs = M.fromList $ do
   (y, row) <- zip [0 ..] xs
   (x, v) <- zip [0 ..] row
   pure ((x, y), v)
+
+getAdjacentPoints :: (Ord a1, Ord a2, Num a1, Num a2) => (a1, a2) -> Map (a1, a2) b -> [b]
+getAdjacentPoints (x, y) grid =
+  mapMaybe (`M.lookup` grid)
+    [ (x, y-1), (x-1, y), (x+1, y), (x, y+1)
+    ]
+
+getAdjacentCoordinates :: (Ord a1, Ord a2, Num a2, Num a1) => (a1, a2) -> Map (a1, a2) a3 -> [(a1, a2)]
+getAdjacentCoordinates (x, y) grid =
+  filter (`M.member` grid) 
+    [ (x, y-1), (x-1, y), (x+1, y), (x, y+1)
+    ]
+
+getAdjacentPointsWithAdjacents :: (Ord a1, Ord a2, Num a1, Num a2) => (a1, a2) -> Map (a1, a2) b -> [b]
+getAdjacentPointsWithAdjacents (x, y) grid =
+  mapMaybe (`M.lookup` grid)
+    [ (x-1, y-1), (x, y-1), (x+1, y-1)
+    , (x-1, y),             (x+1, y) 
+    , (x-1, y+1), (x, y+1), (x+1, y+1)
+    ]
+
+toInts :: [String] -> [[Int]]
+toInts = map $ map digitToInt
 
 trd :: (a, b, c) -> c
 trd (_, _, c) = c
