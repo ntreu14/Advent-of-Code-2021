@@ -1,20 +1,17 @@
 module Main where
 
 import Utils
-    ( readFileLines
-    , toCoordinateMap
-    , Coordinate
-    , getAdjacentPoints
-    , getAdjacentCoordinates
-    , toInts
-    )
+    ( getAdjacentPoints,
+      readFileLines,
+      toCoordinateMap,
+      toInts,
+      Coordinate,
+      getAdjacentCoordinates )
 import Data.List (sortOn)
 import Data.Map.Strict (Map)
 import Data.Set (Set)
 import qualified Data.Set as S
 import qualified Data.Map.Strict as M
-
-import Debug.Trace (trace)
 
 type Grid = Map Coordinate Int
 
@@ -26,7 +23,8 @@ findLowPoints grid = M.filterWithKey isLowerThanAdjacents grid
 floodBasin :: Coordinate -> Grid -> Set Coordinate -> Set Coordinate 
 floodBasin basinCoordinate grid alreadyFound
   | S.null neighbors = alreadyFound
-  | otherwise = S.unions $ S.map (\c -> floodBasin c grid (S.unions [neighbors, alreadyFound, S.insert basinCoordinate alreadyFound])) neighbors
+  | otherwise = 
+    S.unions $ S.map (\c -> floodBasin c grid (S.unions [neighbors, alreadyFound, S.insert basinCoordinate alreadyFound])) neighbors
 
   where
     adjCoordinates = getAdjacentCoordinates basinCoordinate grid
