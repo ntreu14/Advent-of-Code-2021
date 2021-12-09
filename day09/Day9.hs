@@ -24,7 +24,7 @@ floodBasin :: Coordinate -> Grid -> Set Coordinate -> Set Coordinate
 floodBasin basinCoordinate grid alreadyFound
   | S.null neighbors = alreadyFound
   | otherwise = 
-    S.unions $ S.map (\c -> floodBasin c grid (S.unions [neighbors, alreadyFound, S.insert basinCoordinate alreadyFound])) neighbors
+    S.unions $ S.map (\c -> floodBasin c grid (S.union neighbors $ S.insert basinCoordinate alreadyFound)) neighbors
 
   where
     adjCoordinates = getAdjacentCoordinates basinCoordinate grid
