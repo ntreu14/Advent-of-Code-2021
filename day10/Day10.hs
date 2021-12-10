@@ -31,6 +31,7 @@ getAutocompleteCharPoints = go 0
     go score ('[':xs) = go (2 + score * 5) xs
     go score ('{':xs) = go (3 + score * 5) xs
     go score ('<':xs) = go (4 + score * 5) xs
+    go score (_:xs)   = go score xs
 
 getAutocompletePoints line =
   case maybeIllegalChar line of
