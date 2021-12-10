@@ -27,10 +27,10 @@ getIllegalScore line =
 getAutocompleteCharPoints = go 0
   where
     go score [] = score
-    go score ('(':xs) = go (1 + (score * 5)) xs
-    go score ('[':xs) = go (2 + (score * 5)) xs
-    go score ('{':xs) = go (3 + (score * 5)) xs
-    go score ('<':xs) = go (4 + (score * 5)) xs
+    go score ('(':xs) = go (1 + score * 5) xs
+    go score ('[':xs) = go (2 + score * 5) xs
+    go score ('{':xs) = go (3 + score * 5) xs
+    go score ('<':xs) = go (4 + score * 5) xs
 
 getAutocompletePoints line =
   case maybeIllegalChar line of
