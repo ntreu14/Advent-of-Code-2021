@@ -46,7 +46,7 @@ def solve():
       return part1, steps
 
     # Have to reset flashed octopuses back to 0 for the next step
-    for x, y in flashed:
-      grid[x][y] = 0
+    for y, x in flashed:
+      grid[y][x] = 0
 
 print(solve())
