@@ -43,7 +43,7 @@ let decodeSignals knownLengthToSegment decodedLookup (segment: string) =
   match segment.Length with
 
   // Known segements by length
-  | segmentLength when Seq.contains segmentLength <| Map.keys knownLengthToDigitLookup ->
+  | segmentLength when Map.containsKey segmentLength knownLengthToDigitLookup ->
       let digit = Map.find segmentLength knownLengthToDigitLookup
       Map.add (set segment) digit decodedLookup
 
