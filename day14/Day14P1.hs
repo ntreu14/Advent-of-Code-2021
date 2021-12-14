@@ -1,12 +1,9 @@
-{-# LANGUAGE OverloadedStrings, TupleSections #-}
+{-# LANGUAGE OverloadedStrings #-}
 module Main where
 
-import Data.Maybe (fromMaybe)
 import Utils (countOccurrences)
-import Data.List (sort)
 import Data.Ord (comparing)
 import Data.Foldable (maximumBy, minimumBy)
-import Control.Arrow (first)
 import Data.Text (Text)
 import Data.Map.Strict (Map)
 import qualified Data.Text as T
@@ -47,6 +44,6 @@ main = do
   -- Part 1
   print $ solve template translations 10
 
-  -- This is way too inefficient for part 2. See Python solution like we did for Day 6
+  -- This is way too inefficient for part 2. See Python solution like we did for Day 6.
   print $ solve template translations 40
     
