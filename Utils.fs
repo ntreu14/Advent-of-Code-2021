@@ -12,3 +12,6 @@ let mapCountWhere predicate =
 
 let splitOnWithoutEmpties (str: string) (delimeter: char) =
   str.Split (delimeter, StringSplitOptions.RemoveEmptyEntries)
+
+let splitOnWithoutEmptiesStr (str: string) (delimeter: string) =
+  str.Split (delimeter, StringSplitOptions.RemoveEmptyEntries)

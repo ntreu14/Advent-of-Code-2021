@@ -10,6 +10,7 @@ module Utils
   , toInts
   , trd 
   , mapBoth
+  , countOccurrences
   ) where
 
 import Data.Maybe (mapMaybe)
@@ -71,4 +72,7 @@ trd :: (a, b, c) -> c
 trd (_, _, c) = c
 
 mapBoth :: (a -> b) -> (a, a) -> (b, b)
-mapBoth f (a, b) = (f a, f b) 
+mapBoth f (a, b) = (f a, f b)
+
+countOccurrences :: (Ord k, Num a) => [k] -> Map k a
+countOccurrences str = M.fromListWith (+) [(c, 1) | c <- str]
